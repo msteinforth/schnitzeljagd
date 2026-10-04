@@ -1,0 +1,16 @@
+{
+  "Home": {
+    "title": "Schnitzeljagd",
+    "subtitle": "Plane eine Schnitzeljagd für den Kindergeburtstag.",
+    "admin": "Zur Planung",
+    "play": "Zur Spieler-App"
+  },
+  "Admin": {
+    "title": "Planung",
+    "hello": "Hallo! Hier entsteht die Admin-Oberfläche für Schnitzeljagden."
+  },
+  "Play": {
+    "title": "Spieler-App",
+    "hello": "Hallo, Abenteurer! Hier startet bald eure Schnitzeljagd."
+  }
+}
