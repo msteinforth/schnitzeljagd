@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| **Status** | Entwurf v0.1 |
+| **Status** | Entwurf v0.2 (offene Fragen geklärt) |
 | **Datum** | 04.10.2026 |
 | **Owner** | Matthias Steinforth |
 | **Arbeitstitel** | „Schnitzeljagd" |
@@ -45,6 +45,10 @@ Die Kindergruppe spielt in einer **mobilen Web-App im Browser** (keine Installat
 - Mehrere konkurrierende Teams in derselben Jagd (siehe Ausblick).
 - Ein öffentlicher Marktplatz zum Teilen oder Verkaufen von Schnitzeljagden.
 - AR-Funktionen und Indoor-Navigation.
+- Eine Indoor- bzw. Schlechtwetter-Variante ohne GPS (z. B. Stationen per QR-Code in der Wohnung).
+- Mehrere Spielgeräte gleichzeitig in einem Durchlauf.
+- Bezahlfunktionen, Abos oder Premium-Inhalte. Die App ist kostenlos.
+- Moderation oder automatische Filter für hochgeladene Medien.
 - Tracking im Hintergrund bei gesperrtem Bildschirm (technisch im Browser nicht verlässlich möglich, siehe Abschnitt 11).
 
 ---
@@ -55,10 +59,9 @@ Die Kindergruppe spielt in einer **mobilen Web-App im Browser** (keine Installat
 |---|---|---|
 | **Sandra, 38, Mutter** | Spielleitung / Admin | Will mit wenig Aufwand eine tolle Jagd planen, Inhalte am Laptop oder Handy pflegen, am Tag selbst den Überblick behalten und eingreifen können. |
 | **Tom, 41, Vater** | Beobachter (zweiter Elternteil, Helfer) | Will die Gruppe live auf der Karte sehen und Nachrichten beantworten, ohne selbst die Jagd gebaut zu haben. |
-| **Kindergruppe, 6–12 Jahre** | Spieler | Will Abenteuer erleben, Rätsel lösen und schnell wissen, wohin es weitergeht. Braucht große Bedienelemente, wenig Text und Vorlese- bzw. Videoinhalte. |
-| **Begleitperson (optional)** | Trägt das Handy bei jüngeren Kindern | Will, dass die Kinder selbst rätseln, aber bei Problemen schnell Hilfe holen können. |
+| **Kindergruppe, 8–12 Jahre** | Spieler | Will Abenteuer erleben, Rätsel lösen und schnell wissen, wohin es weitergeht. Kann lesen und ein Smartphone bedienen. Braucht große Bedienelemente, kurze Texte und spannende Videoinhalte. |
 
-**Annahme:** Pro Jagd gibt es genau **ein Spielgerät** (Smartphone der Gruppe). Es wird von einem älteren Kind oder einer Begleitperson getragen.
+**Festlegung:** Pro Durchlauf gibt es genau **ein Spielgerät** (Smartphone der Gruppe). Es wird von einem Kind der Gruppe getragen.
 
 ---
 
@@ -140,7 +143,7 @@ Priorität: **M** = Must (MVP), **S** = Should, **C** = Could.
 | RAE-2 | Rätseltypen: **Multiple Choice** (2–6 Antworten als große Buttons), **Freitext** (tolerant gegen Groß-/Kleinschreibung, Leerzeichen und Umlaute; mehrere gültige Schreibweisen möglich), **Zahl**. | M |
 | RAE-3 | Jeder Antwort ist eine **Folge** zugeordnet: (a) *weiter zu Station X*, (b) *falscher Ort Y*, (c) *Meldung „falsch"* mit eigenem Text. | M |
 | RAE-4 | Freitext und Zahl: Definition der richtigen Lösung(en) plus Standardfolge für alle anderen Eingaben. Zusätzlich können bestimmte falsche Eingaben auf einen falschen Ort zeigen. | M |
-| RAE-5 | **Falscher Ort** ist eine eigene Station mit Nachricht/Video („Hier ist nur ein schlafender Drache …"). Danach geht es konfigurierbar zurück zur vorherigen Station oder direkt zurück zum Rätsel (ohne erneutes Hinlaufen). | M |
+| RAE-5 | **Falscher Ort** ist eine eigene Station mit Nachricht/Video („Hier ist nur ein schlafender Drache …"). Danach dürfen die Kinder **direkt neu antworten**: Das ursprüngliche Rätsel erscheint wieder, ohne dass die Gruppe zur vorherigen Station zurücklaufen muss. Die nächste richtige Antwort navigiert vom falschen Ort aus weiter. | M |
 | RAE-6 | Pro Rätsel 0–3 **gestufte Tipps** (Text, Bild oder Video). | M |
 | RAE-7 | Optionale **Strafzeit** oder Sperre nach einer falschen Antwort (z. B. 30 s warten), damit nicht einfach alles durchprobiert wird. | S |
 | RAE-8 | **Flussansicht**: grafische Darstellung aller Stationen und Antwortpfade als Graph. Hervorgehoben werden Fehler: Stationen ohne Eingang, Sackgassen ohne Weg zurück, Pfade ohne Ziel, Zyklen ohne Ausweg. | M |
@@ -152,12 +155,12 @@ Priorität: **M** = Must (MVP), **S** = Should, **C** = Could.
 
 | ID | Anforderung | Prio |
 |---|---|---|
-| MED-1 | Videos hochladen (MP4/MOV/WebM, max. 200 MB pro Video, max. 5 Minuten) und automatisch für Mobilgeräte transkodieren (adaptives Streaming, z. B. HLS). | M |
+| MED-1 | Videos hochladen (MP4/MOV/WebM, max. 200 MB pro Video, max. 5 Minuten, max. 10 Videos pro Jagd) und automatisch für Mobilgeräte transkodieren (adaptives Streaming, z. B. HLS). | M |
 | MED-2 | Videos an diesen Stellen des Ablaufs einbinden: **Intro** (vor Station 1), **vor einem Rätsel**, **als Teil des Rätsels**, **nach richtiger Antwort**, **an falschem Ort**, **als Tipp**, **Finale**. | M |
 | MED-3 | Pro Video einstellen: Pflicht ansehen (Überspringen erst nach Ende) oder überspringbar. | S |
 | MED-4 | Videos direkt im Browser aufnehmen (Webcam/Handykamera), z. B. als „König" verkleidet. | S |
 | MED-5 | Bilder hochladen (JPG/PNG/WebP/HEIC, automatisch komprimiert). | M |
-| MED-6 | Audiodateien bzw. Vorlesefunktion (Text-to-Speech) für Rätseltexte, damit auch Kinder mitspielen, die noch nicht lesen können. | S |
+| MED-6 | Audiodateien bzw. Vorlesefunktion (Text-to-Speech) für Rätseltexte, z. B. als Stimmungselement. Bei der Zielgruppe 8–12 Jahre nicht zwingend nötig. | C |
 | MED-7 | Externe Videos (YouTube-Link) einbetten. | C |
 
 ### 7.5 Admin: Themes
@@ -178,6 +181,7 @@ Priorität: **M** = Must (MVP), **S** = Should, **C** = Could.
 | RUN-1 | **Testmodus**: die Jagd im Browser durchspielen, ohne vor Ort zu sein; die Ankunft wird per Klick simuliert. | M |
 | RUN-2 | **Vor-Ort-Test**: die echte Spieler-App mit GPS ausprobieren, ohne dass ein offizieller Durchlauf gestartet wird. | S |
 | RUN-3 | **Durchlauf starten** erzeugt Link plus QR-Code für das Spielgerät. | M |
+| RUN-7 | **Notfallnummer der Eltern** ist ein Pflichtfeld beim Durchlaufstart (Handynummer, vorbelegt mit der Nummer aus dem Profil). Ohne Nummer kann kein Durchlauf gestartet werden. | M |
 | RUN-4 | Eine Jagd kann **mehrere Durchläufe** haben (z. B. Wiederholung beim nächsten Geburtstag). Durchläufe sind voneinander getrennt. | S |
 | RUN-5 | Die Jagd wird beim Start eines Durchlaufs als Version eingefroren; spätere Änderungen betreffen laufende Durchläufe nur, wenn die Spielleitung das ausdrücklich bestätigt. | S |
 | RUN-6 | Druckfunktion: QR-Code und optionale Stationsschilder als PDF (z. B. für QR-Scan-Rätsel). | C |
@@ -193,15 +197,16 @@ Priorität: **M** = Must (MVP), **S** = Should, **C** = Could.
 | PLY-5 | Button „In Google Maps öffnen" als Fallback für die Fußgänger-Navigation. | S |
 | PLY-6 | **Ankunftserkennung** per Geofence (Position im Radius, mehrere Messungen geglättet, Genauigkeit berücksichtigt). | M |
 | PLY-7 | **Fallback bei schlechtem GPS**: Button „Wir sind da!" wird nach einer konfigurierbaren Zeit oder ab einer Entfernung < 50 m aktiv. Alternativ schaltet die Spielleitung die Station frei. | M |
-| PLY-8 | **Rätselansicht**: große Touch-Ziele (mindestens 48 px), wenig Text, Vorlesen-Button, Bilder und Videos im Vollbild. | M |
+| PLY-8 | **Rätselansicht**: große Touch-Ziele (mindestens 48 px), kurze Texte, Bilder und Videos im Vollbild. | M |
 | PLY-9 | Feedback auf Antworten mit Theme-Animation und Sound (richtig, falscher Ort, falsch). | M |
 | PLY-10 | **Fortschrittsanzeige** im Theme (z. B. Schatzkarte mit abgehakten Stationen), ohne die Positionen künftiger Stationen zu verraten. | S |
 | PLY-11 | **Hilfe-Button** immer erreichbar: zeigt den nächsten Tipp. Sind alle Tipps verbraucht, wird „Eltern um Hilfe bitten" angeboten (siehe 7.9). | M |
 | PLY-12 | **Chat-Button** mit Badge für ungelesene Nachrichten (siehe 7.9). | M |
-| PLY-13 | **Notfall-Button** (getrennt von „Hilfe"): sendet sofort eine Alarmmeldung mit Position an alle Erwachsenen und zeigt eine hinterlegte Telefonnummer zum Direktanruf. | M |
+| PLY-13 | **Notfall-Button** (getrennt von „Hilfe"): startet direkt einen **Anruf auf die hinterlegte Handynummer der Eltern** (`tel:`-Link) und sendet gleichzeitig eine Alarmmeldung mit Position an alle Erwachsenen. Vor dem Anruf gibt es eine kurze Bestätigung, damit nicht versehentlich angerufen wird. | M |
 | PLY-14 | **Zielbildschirm**: Schatz-Animation, Finalvideo, Urkunde mit Gruppenname, Dauer und Anzahl der Stationen (als Bild speicherbar). | M |
 | PLY-15 | **Wake Lock**: Der Bildschirm bleibt während der Navigation an (Screen Wake Lock API), mit Hinweis zum Akku. | M |
 | PLY-16 | Spielstand übersteht das Neuladen der Seite, das Schließen des Browsers und Netzabbrüche. Der Stand wird serverseitig geführt und lokal zwischengespeichert. | M |
+| PLY-19 | **Ein Gerät pro Durchlauf**: Öffnet ein zweites Gerät den Link, wird es abgewiesen. Ausnahme: Die Spielleitung gibt im Admin eine **Geräteübergabe** frei (z. B. wenn der Akku leer ist). Dann übernimmt das neue Gerät, und das alte wird getrennt. | M |
 | PLY-17 | Eingaben bei schwachem Netz zwischenspeichern und nachsenden. Medien der nächsten Station vorab laden. | S |
 | PLY-18 | Kindersichere UI: keine externen Links (außer Google-Maps-Fallback), keine Werbung, kein versehentliches Verlassen ohne Rückfrage. | M |
 
@@ -223,7 +228,7 @@ Priorität: **M** = Must (MVP), **S** = Should, **C** = Could.
 | ID | Anforderung | Prio |
 |---|---|---|
 | CHT-1 | **Echtzeit-Chat** zwischen Spielgerät und Erwachsenen (Spielleitung und Beobachter) pro Durchlauf. | M |
-| CHT-2 | Nachrichtentypen: Text, Emoji, Foto (Kamera oder Galerie). Sprachnachricht als Should (für Kinder, die noch nicht schreiben können). | M (Text/Foto), S (Sprache) |
+| CHT-2 | Nachrichtentypen: Text, Emoji, Foto (Kamera oder Galerie). Sprachnachricht optional. | M (Text/Foto), C (Sprache) |
 | CHT-3 | **Schnellantworten** für Kinder (Buttons): „Wir finden den Ort nicht", „Rätsel ist zu schwer", „Alles gut!", „Wir machen Pause". | M |
 | CHT-4 | **Hilfeanfrage** ist eine besondere Chat-Nachricht mit Kontext: aktuelle Station, Rätsel, bisherige Antworten, Position. Sie wird bei den Erwachsenen hervorgehoben, bis sie beantwortet ist. | M |
 | CHT-5 | Erwachsene können aus dem Chat heraus einen Tipp schicken oder eine Station freischalten (Verknüpfung mit TRK-6). | S |
@@ -269,15 +274,15 @@ Der Zustand wird **serverseitig autoritativ** geführt. Das Spielgerät sendet E
 | Entität | Wichtige Felder |
 |---|---|
 | `User` | id, email, name, created_at |
-| `Hunt` | id, owner_id, title, description, birthday_child_name, age, theme_id, theme_overrides, status (draft/published/archived), settings (navigation_mode, penalty_seconds, emergency_phone) |
+| `Hunt` | id, owner_id, title, description, birthday_child_name, age, theme_id, theme_overrides, status (draft/published/archived), settings (navigation_mode, penalty_seconds) |
 | `HuntVersion` | id, hunt_id, version, snapshot (JSON), created_at |
-| `Station` | id, hunt_id, type (start/regular/wrong/finish), name, lat, lng, radius_m, location_hint, media_before_id, media_after_id, return_target (bei falschem Ort) |
+| `Station` | id, hunt_id, type (start/regular/wrong/finish), name, lat, lng, radius_m, location_hint, media_before_id, media_after_id |
 | `Puzzle` | id, station_id, type (choice/text/number/…), question, media_id, penalty_seconds |
 | `Answer` | id, puzzle_id, label/pattern, outcome (next_station/wrong_place/wrong_message), target_station_id, message |
 | `Hint` | id, puzzle_id, order, text, media_id |
 | `Media` | id, owner_id, type (video/image/audio), storage_key, hls_url, duration, status |
 | `Theme` | id, key, name, tokens (JSON), assets, map_style, vocabulary |
-| `Run` | id, hunt_version_id, access_token, team_name, state, current_station_id, started_at, finished_at |
+| `Run` | id, hunt_version_id, access_token, device_id, emergency_phone, team_name, state, current_station_id, started_at, finished_at |
 | `RunEvent` | id, run_id, type, payload, created_at |
 | `LocationPing` | run_id, lat, lng, accuracy, heading, recorded_at |
 | `Message` | id, run_id, sender_type (player/adult/character), sender_id, kind (text/photo/audio/help/emergency), body, media_id, read_at |
@@ -296,7 +301,8 @@ Der Zustand wird **serverseitig autoritativ** geführt. Das Spielgerät sendet E
 - Transport ausschließlich über HTTPS/WSS; Medien über signierte, zeitlich begrenzte URLs.
 - Rätsellösungen werden nur serverseitig ausgewertet (siehe 8.1).
 - Rate-Limiting für Antworten (Schutz gegen Durchprobieren).
-- Hochgeladene Medien sind privat (nicht öffentlich indexierbar).
+- Hochgeladene Medien sind privat (nicht öffentlich indexierbar). Es gibt **keine Moderation und keinen Upload-Filter**. Die Spielleitung ist laut Nutzungsbedingungen für ihre Inhalte verantwortlich.
+- Die **Notfallnummer** der Eltern wird nur dem Spielgerät des laufenden Durchlaufs angezeigt und mit den übrigen Durchlaufdaten gelöscht.
 
 ### 9.2 Performance & Zuverlässigkeit
 - Erster Aufruf der Spieler-App unter 3 s auf 4G (Lighthouse Performance ≥ 85 auf Mobilgeräten).
@@ -308,7 +314,7 @@ Der Zustand wird **serverseitig autoritativ** geführt. Das Spielgerät sendet E
 
 ### 9.3 Usability & Barrierefreiheit
 - Spieler-App „Mobile first" und Hochformat, mit einer Hand bedienbar.
-- Kindgerecht: kurze Sätze, große Schrift (Basis ≥ 18 px), Symbole statt Text, wo möglich, Vorlesefunktion.
+- Kindgerecht: kurze Sätze, große Schrift (Basis ≥ 18 px), Symbole statt Text, wo möglich. Zielgruppe 8–12 Jahre: Lesefähigkeit wird vorausgesetzt.
 - Ausreichende Kontraste in allen Themes (WCAG 2.1 AA). Bei jedem Theme prüfen, auch im Sonnenlicht.
 - Admin-Oberfläche responsiv: Desktop ist primär, Bearbeiten auf dem Tablet/Handy muss ebenfalls gehen (z. B. Stationen vor Ort setzen).
 - Sprache v1: Deutsch. Architektur von Anfang an mehrsprachig (i18n).
@@ -343,11 +349,12 @@ Der Zustand wird **serverseitig autoritativ** geführt. Das Spielgerät sendet E
 | **Browser liefern keine Position im Hintergrund**, wenn der Bildschirm gesperrt oder die App gewechselt wird. | Live-Tracking reißt ab. | Wake Lock (PLY-15), klarer Hinweis an die Kinder („Handy anlassen!"), „zuletzt gesehen"-Anzeige (TRK-3), langfristig native App oder PWA-Erweiterungen prüfen. |
 | **GPS-Ungenauigkeit** (Bäume, Häuser: 10–50 m Abweichung). | Station wird nicht erkannt oder zu früh erkannt. | Radius konfigurierbar, Glättung, Berücksichtigung der Genauigkeit, „Wir sind da!"-Fallback, manuelle Freischaltung durch die Eltern. |
 | **iOS-Einschränkungen** (Berechtigungen für Kompass und Standort, Web Push nur als installierte PWA). | Teile der Funktionen fehlen auf iPhones. | Feature-Erkennung, sauberes Fallback-Verhalten, frühe Tests auf echten Geräten. |
-| **Kosten der Google-Maps-API** (Map Loads, Places, Directions). | Laufende Kosten pro Jagd. | Kartenaufrufe sparsam nutzen, Directions nur im Admin, Caching, Kostenbudget und Monitoring. Pro Durchlauf ca. ein paar Cent einplanen. |
+| **Kosten der Google-Maps-API** (Map Loads, Places, Directions). | Laufende Kosten pro Jagd. | Die App ist kostenlos, alle Kosten trägt der Betreiber. Kartenaufrufe sparsam nutzen, Directions nur im Admin, Caching, Kostenbudget mit Alarm, Kontingente pro Konto (z. B. Anzahl aktiver Jagden und Durchläufe pro Monat). |
+| **Speicher- und Streamingkosten für Videos** (kostenloses Angebot). | Kosten wachsen mit jeder Jagd. | Limits aus MED-1, automatisches Löschen der Medien archivierter Jagden nach 12 Monaten Inaktivität (mit Vorwarnung per E-Mail). |
 | **Videogröße bei mobilem Datenvolumen.** | Hoher Datenverbrauch, Ruckler. | Transcoding in niedrigere Auflösungen, adaptives Streaming, Vorladen im WLAN beim Start anbieten. |
-| **Sicherheit der Kinder im Straßenverkehr.** | Unfallgefahr durch Blick aufs Handy. | Hinweise im Onboarding, Warnung im Admin bei Routen mit Straßenquerungen (manuell), „Bitte stehen bleiben" bei Videos/Rätseln, Empfehlung einer Begleitperson für jüngere Kinder. |
+| **Sicherheit der Kinder im Straßenverkehr.** | Unfallgefahr durch Blick aufs Handy. | Hinweise im Onboarding, Warnung im Admin bei Routen mit Straßenquerungen (manuell), „Bitte stehen bleiben" bei Videos/Rätseln, Hinweis an die Spielleitung, die Route kindgerecht zu wählen. |
 | **Kinder probieren alle Antworten durch.** | Rätsel verlieren ihren Reiz. | Strafzeit (RAE-7), falsche Orte als Abschreckung, Rate-Limit. |
-| **Akku leer.** | Jagd bricht ab. | Akku-Warnung, Energiesparmodus, Spielstand am Server, Fortsetzen auf einem anderen Gerät über denselben Link. |
+| **Akku leer.** | Jagd bricht ab. | Akku-Warnung, Energiesparmodus, Spielstand am Server, Geräteübergabe durch die Spielleitung (PLY-19). |
 
 **Annahmen**
 - Ein Spielgerät pro Durchlauf, mit mobilem Internet.
@@ -385,7 +392,7 @@ Der Zustand wird **serverseitig autoritativ** geführt. Das Spielgerät sendet E
 ### v1.1
 - Beobachter-Rollen, Web Push
 - „Heiß/kalt"-Modus, Strafzeit
-- Video im Browser aufnehmen, Vorlesefunktion, Sprachnachrichten
+- Video im Browser aufnehmen
 - Schreiben als Spielfigur im Chat
 - Durchlauf-Zusammenfassung
 
@@ -395,16 +402,19 @@ Der Zustand wird **serverseitig autoritativ** geführt. Das Spielgerät sendet E
 - Mehrere Teams gegeneinander (Wettrennen-Modus)
 - Teilen und Kopieren von Jagden zwischen Familien
 - Mehrsprachigkeit (EN)
+- Vorlesefunktion und Sprachnachrichten
 - Native App bzw. Wrapper für Hintergrund-Tracking
 
 ---
 
-## 14. Offene Fragen
+## 14. Entscheidungen
 
-1. **Geschäftsmodell:** Kostenlos, Freemium (z. B. 1 Jagd gratis, Premium-Themes oder Videos kostenpflichtig) oder Einmalzahlung pro Geburtstag? Davon hängen Speicherlimits und das Kostenbudget für Google Maps ab.
-2. **Mehrere Geräte pro Gruppe:** Soll eine Gruppe den Durchlauf auf zwei Handys parallel öffnen können (z. B. eines für die Karte, eines für Videos)?
-3. **Rückweg bei falschem Ort:** Muss die Gruppe zur vorherigen Station zurücklaufen, oder darf sie direkt neu antworten? Bisher konfigurierbar pro falschem Ort. Reicht das, oder brauchen wir einen globalen Standard?
-4. **Indoor- bzw. Schlechtwetter-Variante:** Soll eine Jagd ohne GPS möglich sein (Stationen per QR-Code in der Wohnung)?
-5. **Moderation:** Brauchen wir einen Upload-Filter für Medien, obwohl Inhalte nur privat geteilt werden?
-6. **Alter der Zielgruppe:** Gibt es für 4- bis 6-Jährige einen eigenen „Vorlese-Modus" mit noch weniger Text?
-7. **Notfallnummer:** Pflichtfeld beim Durchlaufstart, und soll zusätzlich auf den Notruf 112 hingewiesen werden?
+| # | Frage | Entscheidung | Auswirkung im PRD |
+|---|---|---|---|
+| 1 | Geschäftsmodell | **Kostenlos**, keine Bezahlfunktionen. | Nicht-Ziele, Limits in MED-1, Kostenrisiken in Abschnitt 11 |
+| 2 | Mehrere Geräte pro Gruppe | **Nein**, genau ein Spielgerät pro Durchlauf. | Abschnitt 4, PLY-19 (inkl. Geräteübergabe durch die Spielleitung) |
+| 3 | Rückweg bei falschem Ort | **Direkt neu antworten**, kein Zurücklaufen. | RAE-5, Datenmodell `Station` |
+| 4 | Indoor-/Schlechtwetter-Variante | **Nein.** | Nicht-Ziele |
+| 5 | Moderation | **Kein Filter.** | Nicht-Ziele, Abschnitt 9.1 |
+| 6 | Alter der Zielgruppe | **8–12 Jahre**, Lesefähigkeit wird vorausgesetzt. | Personas, PLY-8, MED-6, CHT-2, Abschnitt 9.3 |
+| 7 | Notfallnummer | **Handynummer der Eltern** wird beim Durchlaufstart hinterlegt, der Notfall-Button ruft sie direkt an. | RUN-7, PLY-13, Datenmodell `Run`, Abschnitt 9.1 |
