@@ -23,6 +23,7 @@ pnpm install
 cp .env.example .env
 docker compose up -d      # PostgreSQL + MinIO (Bucket wird automatisch angelegt)
 pnpm db:migrate
+pnpm db:seed         # optional: Beispieljagd „Ritter Leos Schatz“
 pnpm dev
 ```
 
@@ -38,11 +39,12 @@ pnpm dev
 | `pnpm build` / `pnpm start`         | Produktions-Build und -Server             |
 | `pnpm lint`                         | ESLint                                    |
 | `pnpm typecheck`                    | TypeScript-Prüfung                        |
-| `pnpm test`                         | Unit-Tests (Vitest)                       |
+| `pnpm test`                         | Tests (Vitest), Datenbanktests mit `.env` |
 | `pnpm format` / `pnpm format:check` | Prettier                                  |
 | `pnpm db:generate`                  | Migration aus `src/db/schema.ts` erzeugen |
 | `pnpm db:migrate`                   | Migrationen anwenden                      |
 | `pnpm db:studio`                    | Drizzle Studio                            |
+| `pnpm db:seed`                      | Beispieljagd anlegen                      |
 
 ## Struktur
 
@@ -51,14 +53,36 @@ src/
   app/
     admin/        Admin-Oberfläche
     play/         Spieler-App
-    api/health/   Health-Check (prüft die Datenbankverbindung)
-  db/             Drizzle-Schema und Datenbank-Client
+    api/          REST-API (siehe unten)
+  db/             Drizzle-Schema, Datenbank-Client, Seed-Skript
+  server/         Service-Schicht mit Zugriffsprüfung (Jagden, Versionen, Durchläufe)
+  test/           Test-Helfer und Fixtures
   i18n/           next-intl-Konfiguration
   lib/storage.ts  S3-Client und signierte Upload-/Download-URLs
   env.ts          Validierung der Umgebungsvariablen
 messages/         Übersetzungen
 drizzle/          SQL-Migrationen
 ```
+
+## Datenmodell und API
+
+Das Schema in `src/db/schema.ts` bildet die Kern-Entitäten aus PRD 8.2 ab. Die Geschäftslogik liegt in `src/server/`; Route Handler und künftige Server Actions rufen nur diese Schicht auf.
+
+**Zugriffsregeln**
+
+- Die Spielleitung sieht und bearbeitet nur eigene Jagden. Beobachter (`collaborators`) dürfen lesen, aber nicht ändern (403).
+- Fremde oder unbekannte Jagden liefern 404, damit ihre Existenz nicht verraten wird.
+- Die Spieler-App greift nur über das geheime Durchlauf-Token zu und bekommt weder Lösungen noch die Notfallnummer.
+- Beim Durchlaufstart wird die Jagd als `hunt_versions.snapshot` eingefroren.
+
+| Methode                    | Pfad                  | Zweck                                        |
+| -------------------------- | --------------------- | -------------------------------------------- |
+| `GET` / `POST`             | `/api/hunts`          | Eigene und beobachtete Jagden / Jagd anlegen |
+| `GET` / `PATCH` / `DELETE` | `/api/hunts/{huntId}` | Jagd mit Stationen lesen / ändern / löschen  |
+| `GET`                      | `/api/play/{token}`   | Durchlauf für die Spieler-App                |
+| `GET`                      | `/api/health`         | Health-Check                                 |
+
+Bis Login und Sessions mit #5 kommen, antworten die Admin-Routen mit 401.
 
 ## Umgebungsvariablen
 
