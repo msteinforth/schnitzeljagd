@@ -8,5 +8,8 @@ export default defineConfig({
   test: {
     environment: "node",
     include: ["src/**/*.test.ts"],
+    setupFiles: ["dotenv/config"],
+    // Datenbanktests teilen sich eine Datenbank; jede Testdatei legt eigene Nutzer an.
+    fileParallelism: false,
   },
 });

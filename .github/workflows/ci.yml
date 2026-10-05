@@ -38,7 +38,9 @@ jobs:
       - run: pnpm format:check
       - run: pnpm lint
       - run: pnpm typecheck
-      - run: pnpm test
       - name: Migrationen gegen leere Datenbank anwenden
         run: pnpm db:migrate
+      - run: pnpm test
+      - name: Beispieldaten einspielen
+        run: pnpm db:seed
       - run: pnpm build
