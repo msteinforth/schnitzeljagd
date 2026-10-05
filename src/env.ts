@@ -1,9 +1,19 @@
 import { z } from "zod";
 
-const serverEnvSchema = z.object({
+type Source = Record<string, string | undefined>;
+
+// Pro Bereich ein eigenes Schema, damit z. B. Datenbankzugriffe nicht an fehlenden
+// S3-Zugangsdaten scheitern.
+const appEnvSchema = z.object({
   NODE_ENV: z.enum(["development", "test", "production"]).default("development"),
   APP_ENV: z.enum(["local", "staging", "production"]).default("local"),
+});
+
+const databaseEnvSchema = z.object({
   DATABASE_URL: z.url(),
+});
+
+const storageEnvSchema = z.object({
   S3_ENDPOINT: z.url().optional(),
   S3_REGION: z.string().min(1).default("eu-central-1"),
   S3_BUCKET: z.string().min(1),
@@ -15,19 +25,26 @@ const serverEnvSchema = z.object({
     .transform((value) => value === "true"),
 });
 
-export type ServerEnv = z.infer<typeof serverEnvSchema>;
-
-let cached: ServerEnv | undefined;
+export type AppEnv = z.infer<typeof appEnvSchema>;
+export type DatabaseEnv = z.infer<typeof databaseEnvSchema>;
+export type StorageEnv = z.infer<typeof storageEnvSchema>;
 
 /**
- * Liest und validiert die Server-Umgebungsvariablen beim ersten Zugriff.
+ * Liest und validiert einen Bereich der Server-Umgebungsvariablen beim ersten Zugriff.
  * Lazy, damit `next build` ohne Datenbank- und S3-Zugangsdaten durchläuft.
  */
-export function getServerEnv(source: Record<string, string | undefined> = process.env): ServerEnv {
-  if (source !== process.env) return serverEnvSchema.parse(source);
-  cached ??= serverEnvSchema.parse(source);
-  return cached;
+function lazyEnv<T>(schema: z.ZodType<T>) {
+  let cached: T | undefined;
+  return (source: Source = process.env): T => {
+    if (source !== process.env) return schema.parse(source);
+    cached ??= schema.parse(source);
+    return cached;
+  };
 }
+
+export const getAppEnv = lazyEnv(appEnvSchema);
+export const getDatabaseEnv = lazyEnv(databaseEnvSchema);
+export const getStorageEnv = lazyEnv(storageEnvSchema);
 
 /** Öffentliche Variablen werden von Next.js beim Build in das Client-Bundle eingesetzt. */
 export const publicEnv = {

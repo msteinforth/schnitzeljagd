@@ -1,13 +1,13 @@
 import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
 
-import { getServerEnv } from "@/env";
+import { getDatabaseEnv } from "@/env";
 import * as schema from "./schema";
 
 type Database = ReturnType<typeof createDb>;
 
 function createDb() {
-  const client = postgres(getServerEnv().DATABASE_URL, { max: 10 });
+  const client = postgres(getDatabaseEnv().DATABASE_URL, { max: 10 });
   return drizzle(client, { schema });
 }
 
